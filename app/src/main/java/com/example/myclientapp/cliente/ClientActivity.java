@@ -1,4 +1,4 @@
-package com.example.myclientapp.notas;
+package com.example.myclientapp.cliente;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.myclientapp.R;
 
-public class NuevaNota extends AppCompatActivity {
+public class ClientActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nueva_nota);
+        setContentView(R.layout.activity_client);
     }
 }

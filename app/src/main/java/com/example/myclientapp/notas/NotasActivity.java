@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.myclientapp.R;
 
-public class DetalleNota extends AppCompatActivity {
+public class NotasActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalle_nota);
+        setContentView(R.layout.activity_notas);
     }
 }
