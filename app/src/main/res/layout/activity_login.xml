@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".login.Login">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/img_user"
+        android:layout_width="156dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="68dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/eti_user"
+        tools:srcCompat="@drawable/img_user" />
+
+    <EditText
+        android:id="@+id/eti_user"
+        android:layout_width="249dp"
+        android:layout_height="77dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="@string/user"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/eti_pass"
+        android:layout_width="249dp"
+        android:layout_height="77dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="@string/pass"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/btnEntrar"
+        android:layout_width="300dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="204dp"
+        android:background="@drawable/button_shape"
+        android:text="@string/entrar"
+        android:layout_gravity="center"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
