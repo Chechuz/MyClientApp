@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">MyClientApp</string>
+    <string name="app_name">MyClientTrack</string>
+    <string name="wellcome">¡Bienvenido/a!</string>
+    <string name="msj_addCl">Para añadir un nuevo contacto
+        presiona el símbolo (+)
+        situado en la barra de menú.</string>
+    <string name="user">Usuario</string>
+    <string name="pass">Contraseña</string>
+    <string name="entrar">Entrar</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="name">Nombre</string>
+    <string name="addr">Dirección</string>
+    <string name="phone">Teléfono</string>
+    <string name="email"></string>
+    <string name="other">Otro</string>
+
 </resources>
