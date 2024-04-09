@@ -31,19 +31,29 @@ public class DataBase extends SQLiteOpenHelper {
     public static String COLUMN_DETAILS="detalle";
     public static String COLUMN_DATE="fecha";
     public static String COLUMN_TIME="hora";
+
     public DataBase(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query= "CREATE TABLE "+ DB_TABLE_NOTAS +
+        String queryCliente= "CREATE TABLE "+ DB_TABLE_CLIENTES +
+                " ("+ COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_CLIENT_NAME + " TEXT, " +
+                COLUMN_CLIENT_ADRESS + " TEXT, " +
+                COLUMN_CLIENT_PHONE + " TEXT, " +
+                COLUMN_CLIENT_EMAIL + " TEXT, " +
+                COLUMN_CLIENT_OTHER + " TEXT); ";
+        db.execSQL(queryCliente);
+        String queryNotas= "CREATE TABLE "+ DB_TABLE_NOTAS +
                 " ("+ COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT, " +
                 COLUMN_DETAILS + " TEXT, " +
                 COLUMN_DATE + " TEXT, " +
                 COLUMN_TIME + " TEXT); ";
-        db.execSQL(query);
+        db.execSQL(queryNotas);
+
 
     }
 
@@ -66,11 +76,11 @@ public class DataBase extends SQLiteOpenHelper {
         Log.d("Insertado", "id-->"+ID);
         return ID;
     }
-    // creo el Array para almacenar los datos
+    // creo el Array para almacenar los datos y el metodo para obtener la nota
     public List<Notas_modelo> getNote(){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Notas_modelo> notas = new ArrayList<>();
-        String querySt= "SELECT * FROM "+ DB_TABLE_NOTAS;
+        String querySt= "SELECT * FROM "+ DB_TABLE_NOTAS;  //AQUI DEBO AÑADIR EL "WHERE ClientID =id"
         Cursor cursor= db.rawQuery(querySt, null);
         if(cursor.moveToFirst()){
             do{
