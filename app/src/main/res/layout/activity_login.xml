@@ -35,12 +35,12 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/pass"
-        android:inputType="text"
         android:textSize="16sp"
+        android:inputType="textPassword"
         android:layout_gravity="center"/>
 
     <Button
-        android:id="@+id/btnEntrar"
+        android:id="@+id/btn_entrar"
         android:layout_width="300dp"
         android:layout_height="51dp"
         android:layout_marginTop="30dp"
