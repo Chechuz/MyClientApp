@@ -9,6 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.myclientapp.cliente.Cliente;
 import com.example.myclientapp.notas.Notas_modelo;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class DataBase extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+    //CREACION  DE  LA  BASE  DE  DATOS  CON SUS DOS  TABLAS
     @Override
     public void onCreate(SQLiteDatabase db) {
         String queryCliente= "CREATE TABLE "+ DB_TABLE_CLIENTES +
@@ -56,7 +58,7 @@ public class DataBase extends SQLiteOpenHelper {
 
 
     }
-
+//   ACTUALIZACION DE LA BBDD
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         if(i>=i1)
@@ -64,6 +66,8 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ DB_NAME);
         onCreate(db);
     }
+
+    //METODO QUE AÑADE  NOTAS   (metodo .put)
     public long anadeNota(Notas_modelo notaModelo){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
@@ -76,7 +80,8 @@ public class DataBase extends SQLiteOpenHelper {
         Log.d("Insertado", "id-->"+ID);
         return ID;
     }
-    // creo el Array para almacenar los datos y el metodo para obtener la nota
+
+    // creo el Array para almacenar los datos
     public List<Notas_modelo> getNote(){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Notas_modelo> notas = new ArrayList<>();
@@ -97,6 +102,7 @@ public class DataBase extends SQLiteOpenHelper {
         return notas;
     }
 
+    //   METODO QUE OBTIENE UNA NOTA DE LA TABLA SEGUN SU ID
     public Notas_modelo getNotas(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         String [] query = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DETAILS, COLUMN_DATE, COLUMN_TIME};
@@ -110,10 +116,52 @@ public class DataBase extends SQLiteOpenHelper {
                 cursor.getString(3),
                 cursor.getString(4));
     }
-
+//    METODO QUE ELIMINA UNA NOTA PASANDO SU ID COMO PARÁMETRO
     void eliminaNota(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         db.delete(DB_TABLE_NOTAS, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    //  -----^¨^¨^¨^¨  METODODS PARA  C L I E N T E   ¨^¨^¨^¨^¨---------
+    //  CREO EL LIST QUE ALMACENA AL CLIENTE
+    public List<Cliente> getCliente(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List <Cliente> cliente_list = new ArrayList<>();
+        String querySt= "SELECT * FROM "+ DB_TABLE_CLIENTES;
+        Cursor cursor= db.rawQuery(querySt, null);
+        if(cursor.moveToFirst()){
+            do{
+                Cliente cliente = new Cliente();
+                cliente.setId(cursor.getInt(0));
+                cliente.setNombre(cursor.getString(1));
+                cliente.setDireccion(cursor.getString(2));
+                cliente.setTelefono(cursor.getString(3));
+                cliente.setEmail(cursor.getString(4));
+                cliente.setOtro(cursor.getString(5));
+
+                cliente_list.add(cliente);
+            } while (cursor.moveToNext());
+        }
+        return cliente_list;
+    }
+    public Cliente getClientes(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String [] query = new String[]{COLUMN_ID, COLUMN_CLIENT_NAME, COLUMN_CLIENT_ADRESS, COLUMN_CLIENT_PHONE, COLUMN_CLIENT_EMAIL, COLUMN_CLIENT_OTHER};
+        Cursor cursor = db.query(DB_TABLE_CLIENTES, query, COLUMN_ID + "=?", new String[]{String.valueOf(id)},null,null,null,null);
+        if(cursor!=null)
+            cursor.moveToFirst();
+        return new Cliente(
+                Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(4));
+    }
+    void eliminaCliente(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.delete(DB_TABLE_CLIENTES, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
     }
 
