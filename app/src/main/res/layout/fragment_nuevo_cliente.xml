@@ -88,7 +88,7 @@
                 android:autofillHints="phone"
                 android:ems="10"
                 android:hint="@string/phone"
-                android:inputType="text"
+                android:inputType="number|phone"
                 android:textSize="20sp" />
         </TableRow>
 
