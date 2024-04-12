@@ -67,6 +67,8 @@ public class DataBase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //  -----^¨^¨^¨^¨  METODODS PARA  N O T A S   ¨^¨^¨^¨^¨---------
+
     //METODO QUE AÑADE  NOTAS   (metodo .put)
     public long anadeNota(Notas_modelo notaModelo){
         SQLiteDatabase db=this.getWritableDatabase();
@@ -81,7 +83,7 @@ public class DataBase extends SQLiteOpenHelper {
         return ID;
     }
 
-    // creo el Array para almacenar los datos
+    // creo el Array para almacenar los datos QUE SE MOSTRARÁ EN EL RECYCLER
     public List<Notas_modelo> getNote(){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Notas_modelo> notas = new ArrayList<>();
@@ -124,6 +126,7 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     //  -----^¨^¨^¨^¨  METODODS PARA  C L I E N T E   ¨^¨^¨^¨^¨---------
+
     //  CREO EL LIST QUE ALMACENA AL CLIENTE
     public List<Cliente> getCliente(){
         SQLiteDatabase db = this.getReadableDatabase();
