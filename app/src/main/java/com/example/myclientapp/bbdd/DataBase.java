@@ -104,7 +104,7 @@ public class DataBase extends SQLiteOpenHelper {
         return notas;
     }
 
-    //   METODO QUE OBTIENE UNA NOTA DE LA TABLA SEGUN SU ID
+    //   METODO QUE OBTIENE UNA NOTA DE LA TABLA SEGUN SU ID (para poner en el OnClick del view holder
     public Notas_modelo getNotas(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         String [] query = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DETAILS, COLUMN_DATE, COLUMN_TIME};
@@ -127,7 +127,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     //  -----^¨^¨^¨^¨  METODODS PARA  C L I E N T E   ¨^¨^¨^¨^¨---------
 
-    //  CREO EL LIST QUE ALMACENA AL CLIENTE
+    //  CREO EL LIST QUE ALMACENA AL CLIENTE que se mostrará en el Recycler de clientes
     public List<Cliente> getCliente(){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Cliente> cliente_list = new ArrayList<>();
@@ -148,6 +148,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
         return cliente_list;
     }
+    //Obtiene un cliente del Recycler para mostrar su vista completa
     public Cliente getClientes(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         String [] query = new String[]{COLUMN_ID, COLUMN_CLIENT_NAME, COLUMN_CLIENT_ADRESS, COLUMN_CLIENT_PHONE, COLUMN_CLIENT_EMAIL, COLUMN_CLIENT_OTHER};
