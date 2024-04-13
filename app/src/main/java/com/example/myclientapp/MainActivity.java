@@ -1,6 +1,8 @@
 package com.example.myclientapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.annotation.NonNull;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recycler;
     AdapterCliente adapter;
     List<Cliente> listaClientes;
+    Fragment fragmentNewClient;
+    FragmentTransaction fragmentTransaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         recycler = findViewById(id.recycler_client);
         DataBase clientesDB = new DataBase(this);
         listaClientes = clientesDB.getCliente();  //llamo al List de la bbdd
+        fragmentNewClient= new NuevoClienteFragment();
+        getSupportFragmentManager().beginTransaction().add(id.contenedor_newClient, fragmentNewClient).commit();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
@@ -52,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
     // ponemos el intent en el item del menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.add);
-        Intent i = new Intent(MainActivity.this, NuevoClienteFragment.class);
-        startActivity(i);
+        if(item.getItemId()==R.id.add){
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor_newClient,fragmentNewClient);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();}
         return super.onOptionsItemSelected(item);
     }
 }

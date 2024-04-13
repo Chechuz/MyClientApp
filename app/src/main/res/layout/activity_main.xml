@@ -10,4 +10,10 @@
         android:id="@+id/recycler_client"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <fragment
+        android:id="@+id/contenedor_newClient"
+        android:name="com.example.myclientapp.cliente.NuevoClienteFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </fragment>
 </androidx.constraintlayout.widget.ConstraintLayout>
