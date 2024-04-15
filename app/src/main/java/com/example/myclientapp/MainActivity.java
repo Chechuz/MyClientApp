@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
         recycler = findViewById(id.recycler_client);
         DataBase clientesDB = new DataBase(this);
         listaClientes = clientesDB.getCliente();  //llamo al List de la bbdd
-        fragmentNewClient= new NuevoClienteFragment();
-        getSupportFragmentManager().beginTransaction().add(id.contenedor_newClient, fragmentNewClient).commit();
+
+        //fragmentNewClient= new NuevoClienteFragment();
+        //getSupportFragmentManager().beginTransaction().add(id.contenedor_newClient, fragmentNewClient).commit();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
@@ -54,15 +55,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //Añado el onclic en el item seleccionado (el intent en el item del menu)
+    //Añado el onclic en el item seleccionado
     // ponemos el intent en el item del menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.add){
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.contenedor_newClient,fragmentNewClient);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();}
+            fragmentNewClient= new NuevoClienteFragment();
+            fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.contenedor_newClient,fragmentNewClient);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();}
         return super.onOptionsItemSelected(item);
     }
 }
