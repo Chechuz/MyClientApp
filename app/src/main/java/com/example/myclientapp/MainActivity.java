@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
         DataBase clientesDB = new DataBase(this);
         listaClientes = clientesDB.getCliente();  //llamo al List de la bbdd
 
-        //fragmentNewClient= new NuevoClienteFragment();
-        //getSupportFragmentManager().beginTransaction().add(id.contenedor_newClient, fragmentNewClient).commit();
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
