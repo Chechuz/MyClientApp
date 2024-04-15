@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
 import static com.example.myclientapp.R.*;
 import com.example.myclientapp.adapter.AdapterCliente;
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.contenedor_newClient,fragmentNewClient);
             fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();}
+            fragmentTransaction.commit();
+            recycler.setVisibility(View.GONE);}
         return super.onOptionsItemSelected(item);
     }
 }
