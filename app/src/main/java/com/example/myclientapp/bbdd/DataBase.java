@@ -128,6 +128,19 @@ public class DataBase extends SQLiteOpenHelper {
     //  -----^¨^¨^¨^¨  METODODS PARA  C L I E N T E   ¨^¨^¨^¨^¨---------
 
     //  CREO EL LIST QUE ALMACENA AL CLIENTE que se mostrará en el Recycler de clientes
+    public long anadeCliente(Cliente cliente){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues contentValues= new ContentValues();
+        contentValues.put(COLUMN_CLIENT_NAME, cliente.getNombre());
+        contentValues.put(COLUMN_CLIENT_ADRESS, cliente.getDireccion());
+        contentValues.put(COLUMN_CLIENT_PHONE, cliente.getTelefono());
+        contentValues.put(COLUMN_CLIENT_EMAIL, cliente.getEmail());
+        contentValues.put(COLUMN_CLIENT_OTHER, cliente.getOtro());
+
+        long ID= db.insert(DB_TABLE_CLIENTES, null, contentValues);
+        Log.d("Insertado", "id-->"+ID);
+        return ID;
+    }
     public List<Cliente> getCliente(){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Cliente> cliente_list = new ArrayList<>();
