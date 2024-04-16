@@ -11,10 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 
 
 import com.example.myclientapp.MainActivity;
@@ -71,11 +67,10 @@ public class NuevoClienteFragment extends Fragment {
                 db.anadeCliente(miCliente);
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
-                // aviso al usuario que la nota ha sido guardada
+                // aviso al usuario que el cliente ha sido guardado
                 Toast.makeText(getContext(), "Cliente guardado", Toast.LENGTH_SHORT).show();
             }
         });
-
         return root;
     }
 }
