@@ -1,13 +1,19 @@
 package com.example.myclientapp.cliente;
 
+import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +23,11 @@ import com.example.myclientapp.bbdd.DataBase;
 
 public class ClientActivity extends AppCompatActivity {
   TextView verNom, verTel, verDir, verEmail, verOtro;
+  Button btnEditar, btnVolver;
+    Fragment fragmentEditaCl;
+    FragmentTransaction fragmentTransaction;
+    LinearLayout viewCliente;
+
   int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +36,19 @@ public class ClientActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Detalle del Cliente");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        viewCliente = (LinearLayout)findViewById(R.id.layout_contenedor);
+
         verNom = findViewById(R.id.tvNom);
         verDir = findViewById(R.id.tvDir);
         verTel = findViewById(R.id.tvTel);
         verEmail = findViewById(R.id.tvEmail);
         verOtro = findViewById(R.id.tvOtro);
+        btnEditar = findViewById(R.id.btn_editar);
+        btnVolver = findViewById(R.id.btn_volver);
 
         DataBase db = new DataBase(this);
         Intent intent = getIntent();
-        id= intent.getIntExtra("ID",0);
+        id = intent.getIntExtra("ID", 0);
         Cliente clModelo = db.getClientes(id);
 
         verNom.setText(clModelo.getNombre());
@@ -41,7 +56,26 @@ public class ClientActivity extends AppCompatActivity {
         verTel.setText(clModelo.getTelefono());
         verEmail.setText(clModelo.getEmail());
         verOtro.setText(clModelo.getOtro());
-        Toast.makeText(getApplicationContext(), "id "+ clModelo.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "id " + clModelo.getId(), Toast.LENGTH_SHORT).show();
+
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClientActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentEditaCl= new EditaClienteFragment();
+                fragmentTransaction=getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.contenedor_editClient,fragmentEditaCl);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                viewCliente.setVisibility(View.INVISIBLE);
+            }
+        });
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -66,4 +100,5 @@ public class ClientActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
