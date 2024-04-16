@@ -176,7 +176,7 @@ public class DataBase extends SQLiteOpenHelper {
                 cursor.getString(4),
                 cursor.getString(4));
     }
-    void eliminaCliente(int id){
+    public void eliminaCliente(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         db.delete(DB_TABLE_CLIENTES, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
