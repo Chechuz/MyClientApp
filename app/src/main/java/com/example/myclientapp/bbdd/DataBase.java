@@ -174,7 +174,7 @@ public class DataBase extends SQLiteOpenHelper {
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
-                cursor.getString(4));
+                cursor.getString(5));
     }
     public void eliminaCliente(int id){
         SQLiteDatabase db = this.getReadableDatabase();
