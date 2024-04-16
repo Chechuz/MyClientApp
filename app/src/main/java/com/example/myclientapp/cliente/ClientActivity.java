@@ -33,32 +33,7 @@ public class ClientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client);
-        getSupportActionBar().setTitle("Detalle del Cliente");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        viewCliente = (LinearLayout)findViewById(R.id.layout_contenedor);
-
-        verNom = findViewById(R.id.tvNom);
-        verDir = findViewById(R.id.tvDir);
-        verTel = findViewById(R.id.tvTel);
-        verEmail = findViewById(R.id.tvEmail);
-        verOtro = findViewById(R.id.tvOtro);
-        btnEditar = findViewById(R.id.btn_editar);
-        btnVolver = findViewById(R.id.btn_volver);
-
-        DataBase db = new DataBase(this);
-        Intent intent = getIntent();
-        id = intent.getIntExtra("ID", 0);
-        Cliente clModelo = db.getClientes(id);
-
-        verNom.setText(clModelo.getNombre());
-        verDir.setText(clModelo.getDireccion());
-        verTel.setText(clModelo.getTelefono());
-        verEmail.setText(clModelo.getEmail());
-        verOtro.setText(clModelo.getOtro());
-        Toast.makeText(getApplicationContext(), "id " + clModelo.getId(), Toast.LENGTH_SHORT).show();
-
+        cargarVista();
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,5 +77,31 @@ public class ClientActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    protected void cargarVista(){
+        setContentView(R.layout.activity_client);
+        getSupportActionBar().setTitle("Detalle del Cliente");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        viewCliente = (LinearLayout)findViewById(R.id.layout_contenedor);
+
+        verNom = findViewById(R.id.tvNom);
+        verDir = findViewById(R.id.tvDir);
+        verTel = findViewById(R.id.tvTel);
+        verEmail = findViewById(R.id.tvEmail);
+        verOtro = findViewById(R.id.tvOtro);
+        btnEditar = findViewById(R.id.btn_editar);
+        btnVolver = findViewById(R.id.btn_volver);
+
+        DataBase db = new DataBase(this);
+        Intent intent = getIntent();
+        id = intent.getIntExtra("ID", 0);
+        Cliente clModelo = db.getClientes(id);
+
+        verNom.setText(clModelo.getNombre());
+        verDir.setText(clModelo.getDireccion());
+        verTel.setText(clModelo.getTelefono());
+        verEmail.setText(clModelo.getEmail());
+        verOtro.setText(clModelo.getOtro());
+        Toast.makeText(getApplicationContext(), "id " + clModelo.getId(), Toast.LENGTH_SHORT).show();
+    }
 }
