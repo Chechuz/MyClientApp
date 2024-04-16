@@ -72,7 +72,7 @@ public class NuevoClienteFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
                 // aviso al usuario que la nota ha sido guardada
-                Toast.makeText(getContext(), "Nota guardada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cliente guardado", Toast.LENGTH_SHORT).show();
             }
         });
 
