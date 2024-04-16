@@ -1,6 +1,5 @@
 package com.example.myclientapp.cliente;
 
-import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -20,6 +19,8 @@ import android.widget.Toast;
 import com.example.myclientapp.MainActivity;
 import com.example.myclientapp.R;
 import com.example.myclientapp.bbdd.DataBase;
+
+import java.util.List;
 
 public class ClientActivity extends AppCompatActivity {
   TextView verNom, verTel, verDir, verEmail, verOtro;
@@ -74,6 +75,7 @@ public class ClientActivity extends AppCompatActivity {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 viewCliente.setVisibility(View.INVISIBLE);
+
             }
         });
     }
