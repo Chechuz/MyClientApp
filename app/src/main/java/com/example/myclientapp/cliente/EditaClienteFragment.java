@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.myclientapp.MainActivity;
 import com.example.myclientapp.R;
 import com.example.myclientapp.bbdd.DataBase;
 
@@ -58,6 +59,14 @@ public class EditaClienteFragment extends Fragment {
         verOtro.setText(clModelo.getOtro());
          **/
         // Inflate the layout for this fragment
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
         return root;
     }
+
 }
