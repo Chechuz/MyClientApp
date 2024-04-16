@@ -16,6 +16,9 @@
     <string name="other">Otro</string>
     <string name="save_changes">Guardar Cambios</string>
     <string name="edit">Editar</string>
+    <string name="titulo">Titulo Nota</string>
+    <string name="fecha">fecha</string>
+    <string name="hora">hora</string>
     <string name="content_desc_happyFace">Imagen de cara sonrriente</string>
     <string name="content_desc_verNotas">Imagen de un folio escrito para visualizar las notras del cliente</string>
     <string name="content_desc_anadeNota">Imagen de un folio con simbolo de más para añadir una nota</string>
