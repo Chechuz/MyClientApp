@@ -15,6 +15,8 @@ import com.example.myclientapp.MainActivity;
 import com.example.myclientapp.R;
 import com.example.myclientapp.bbdd.DataBase;
 
+import java.util.List;
+
 
 public class EditaClienteFragment extends Fragment {
     public EditaClienteFragment() {
@@ -36,6 +38,7 @@ public class EditaClienteFragment extends Fragment {
     EditText verNom, verTel, verDir, verEmail, verOtro;
     Button btnCancel, btnGuardar;
     int id;
+    Cliente clAeditar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,17 +51,15 @@ public class EditaClienteFragment extends Fragment {
         btnCancel = root.findViewById(R.id.btn_cancelar1);
         btnGuardar = root.findViewById(R.id.btn_guardar1);
 
-        //+++++++++++   COMO ME TRAIGO LOS DATOS DE ESE CLIENTE??? +++++
-        /**DataBase db = new DataBase(getContext());
-        Cliente clModelo = db.getClientes(id);
+        id = getArguments().getInt("key");
+        DataBase db = new DataBase(getContext());
+        clAeditar = db.getClientes(id);
 
-        verNom.setText(clModelo.getNombre());
-        verDir.setText(clModelo.getDireccion());
-        verTel.setText(clModelo.getTelefono());
-        verEmail.setText(clModelo.getEmail());
-        verOtro.setText(clModelo.getOtro());
-         **/
-        // Inflate the layout for this fragment
+        verNom.setText(clAeditar.getNombre());
+        verDir.setText(clAeditar.getDireccion());
+        verTel.setText(clAeditar.getTelefono());
+        verEmail.setText(clAeditar.getEmail());
+        verOtro.setText(clAeditar.getOtro());
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

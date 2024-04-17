@@ -20,6 +20,8 @@ import com.example.myclientapp.MainActivity;
 import com.example.myclientapp.R;
 import com.example.myclientapp.bbdd.DataBase;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientActivity extends AppCompatActivity {
@@ -28,31 +30,15 @@ public class ClientActivity extends AppCompatActivity {
     Fragment fragmentEditaCl;
     FragmentTransaction fragmentTransaction;
     LinearLayout viewCliente;
+    List <Cliente> cliente;
+    Cliente clModelo;
+    int id;
 
-  int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cargarVista();
-        btnVolver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ClientActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentEditaCl= new EditaClienteFragment();
-                fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.contenedor_editClient,fragmentEditaCl);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                viewCliente.setVisibility(View.INVISIBLE);
 
-            }
-        });
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -95,7 +81,7 @@ public class ClientActivity extends AppCompatActivity {
         DataBase db = new DataBase(this);
         Intent intent = getIntent();
         id = intent.getIntExtra("ID", 0);
-        Cliente clModelo = db.getClientes(id);
+        clModelo = db.getClientes(id);
 
         verNom.setText(clModelo.getNombre());
         verDir.setText(clModelo.getDireccion());
@@ -103,5 +89,29 @@ public class ClientActivity extends AppCompatActivity {
         verEmail.setText(clModelo.getEmail());
         verOtro.setText(clModelo.getOtro());
         Toast.makeText(getApplicationContext(), "id " + clModelo.getId(), Toast.LENGTH_SHORT).show();
+
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClientActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("key",id);
+                fragmentEditaCl= new EditaClienteFragment();
+                fragmentEditaCl.setArguments(bundle);
+                fragmentTransaction=getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenedor_editClient,fragmentEditaCl);
+                fragmentTransaction.addToBackStack(null)
+                        .commit();
+
+                viewCliente.setVisibility(View.INVISIBLE);
+
+            }
+        });
     }
 }
