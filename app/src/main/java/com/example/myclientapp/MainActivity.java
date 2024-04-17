@@ -7,23 +7,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.annotation.NonNull;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
+import android.widget.TextView;
+
 import static com.example.myclientapp.R.*;
 import com.example.myclientapp.adapter.AdapterCliente;
 import com.example.myclientapp.bbdd.DataBase;
-import com.example.myclientapp.cliente.ClientActivity;
 import com.example.myclientapp.cliente.Cliente;
 import com.example.myclientapp.cliente.NuevoClienteFragment;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    TextView tvInicio;
     RecyclerView recycler;
     AdapterCliente adapter;
     List<Cliente> listaClientes;
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tvInicio = findViewById(R.id.tvInicial);
+        tvInicio.setVisibility(View.INVISIBLE);
         recycler = findViewById(id.recycler_client);
         DataBase clientesDB = new DataBase(this);
         listaClientes = clientesDB.getCliente();  //llamo al List de la bbdd
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(layoutManager);
         adapter = new AdapterCliente(this, listaClientes);
         recycler.setAdapter(adapter);
+        if(listaClientes.isEmpty()){
+            tvInicio.setVisibility(View.VISIBLE);
+        }
     }
     // Hago visible el menu
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.replace(R.id.contenedor_newClient,fragmentNewClient);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-            recycler.setVisibility(View.GONE);}
+            recycler.setVisibility(View.GONE);
+            tvInicio.setVisibility(View.GONE);}
         return super.onOptionsItemSelected(item);
     }
 }
