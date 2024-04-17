@@ -30,7 +30,6 @@ public class ClientActivity extends AppCompatActivity {
     Fragment fragmentEditaCl;
     FragmentTransaction fragmentTransaction;
     LinearLayout viewCliente;
-    List <Cliente> cliente;
     Cliente clModelo;
     int id;
 
@@ -102,6 +101,7 @@ public class ClientActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("key",id);
+
                 fragmentEditaCl= new EditaClienteFragment();
                 fragmentEditaCl.setArguments(bundle);
                 fragmentTransaction=getSupportFragmentManager().beginTransaction()
@@ -110,7 +110,6 @@ public class ClientActivity extends AppCompatActivity {
                         .commit();
 
                 viewCliente.setVisibility(View.INVISIBLE);
-
             }
         });
     }
