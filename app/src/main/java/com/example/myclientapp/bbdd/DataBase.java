@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBase extends SQLiteOpenHelper {
-    public static final int DB_VERSION =1;
+    public static final int DB_VERSION =2;
     public static String DB_NAME="MyClientTrakDB.db";
     public static String DB_TABLE_NOTAS="TablaNotas";
     public static String DB_TABLE_CLIENTES="TablaClientes";
@@ -28,6 +28,7 @@ public class DataBase extends SQLiteOpenHelper {
     public static String COLUMN_CLIENT_PHONE="telefono";
     public static String COLUMN_CLIENT_EMAIL="email";
     public static String COLUMN_CLIENT_OTHER="otro";
+    public static String COLUMN_FOREIGN_KEY="id_cliente";
     public static String COLUMN_TITLE="titulo";
     public static String COLUMN_DETAILS="detalle";
     public static String COLUMN_DATE="fecha";
@@ -50,12 +51,14 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL(queryCliente);
         String queryNotas= "CREATE TABLE "+ DB_TABLE_NOTAS +
                 " ("+ COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_FOREIGN_KEY + " INTEGER, " +
                 COLUMN_TITLE + " TEXT, " +
                 COLUMN_DETAILS + " TEXT, " +
                 COLUMN_DATE + " TEXT, " +
-                COLUMN_TIME + " TEXT); ";
+                COLUMN_TIME + " TEXT, " +
+                "FOREIGN KEY (" + COLUMN_FOREIGN_KEY +
+                ") REFERENCES " + DB_TABLE_CLIENTES + "("+ COLUMN_ID +")); " ;
         db.execSQL(queryNotas);
-
 
     }
 //   ACTUALIZACION DE LA BBDD
