@@ -130,7 +130,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     //  -----^¨^¨^¨^¨  METODODS PARA  C L I E N T E   ¨^¨^¨^¨^¨---------
 
-    //  CREO EL LIST QUE ALMACENA AL CLIENTE que se mostrará en el Recycler de clientes
+    //  CREO EL METODO que añade clientes a la database
     public long anadeCliente(Cliente cliente){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
@@ -144,6 +144,8 @@ public class DataBase extends SQLiteOpenHelper {
         Log.d("Insertado", "id-->"+ID);
         return ID;
     }
+
+    // Obtiene la lista completa de clientes para poder ponerla en el Recycler
     public List<Cliente> getCliente(){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Cliente> cliente_list = new ArrayList<>();
@@ -164,7 +166,7 @@ public class DataBase extends SQLiteOpenHelper {
         }
         return cliente_list;
     }
-    //Obtiene un cliente del Recycler para mostrar su vista completa
+    //Obtiene un cliente del Recycler para mostrar su vista completa en "Client Activity"
     public Cliente getClientes(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         String [] query = new String[]{COLUMN_ID, COLUMN_CLIENT_NAME, COLUMN_CLIENT_ADRESS, COLUMN_CLIENT_PHONE, COLUMN_CLIENT_EMAIL, COLUMN_CLIENT_OTHER};
@@ -185,4 +187,17 @@ public class DataBase extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void editaCliente(Cliente cliente) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_CLIENT_NAME, cliente.getNombre());
+        contentValues.put(COLUMN_CLIENT_ADRESS, cliente.getDireccion());
+        contentValues.put(COLUMN_CLIENT_PHONE, cliente.getTelefono());
+        contentValues.put(COLUMN_CLIENT_EMAIL, cliente.getEmail());
+        contentValues.put(COLUMN_CLIENT_OTHER, cliente.getOtro());
+
+        db.update(DB_TABLE_CLIENTES, contentValues, COLUMN_ID + " = "+cliente.getId(), null);
+        db.close();
+
+    }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.myclientapp.MainActivity;
 import com.example.myclientapp.R;
@@ -65,6 +66,16 @@ public class EditaClienteFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
+            }
+        });
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.editaCliente(clAeditar);
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+                // aviso al usuario que el cliente ha sido actualizado
+                Toast.makeText(getContext(), "Cliente actualizado", Toast.LENGTH_SHORT).show();
             }
         });
         return root;
