@@ -6,6 +6,15 @@ android:id="@+id/main"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".notas.Notas">
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/contenedor_nueva_nota"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_nueva_nota"></androidx.fragment.app.FragmentContainerView>
     <TextView
         android:id="@+id/tvEmptyNotas"
         android:layout_width="313dp"

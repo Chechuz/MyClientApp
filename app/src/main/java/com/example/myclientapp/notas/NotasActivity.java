@@ -1,5 +1,6 @@
 package com.example.myclientapp.notas;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -7,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +19,7 @@ import com.example.myclientapp.adapter.AdapterCliente;
 import com.example.myclientapp.adapter.AdapterNotas;
 import com.example.myclientapp.bbdd.DataBase;
 import com.example.myclientapp.cliente.Cliente;
+import com.example.myclientapp.cliente.NuevoClienteFragment;
 
 import java.util.List;
 
@@ -45,5 +50,21 @@ public class NotasActivity extends AppCompatActivity {
         if(listaNotas.isEmpty()){
             tvEmptyNotas.setVisibility(View.VISIBLE);
         }
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_anade, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.add){
+            fragmentNuevaNota= new NuevaNotaFragment();
+            fragmentTransaction=getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.contenedor_nueva_nota,fragmentNuevaNota);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            recycler.setVisibility(View.GONE);
+            tvEmptyNotas.setVisibility(View.GONE);}
+        return super.onOptionsItemSelected(item);
     }
 }
