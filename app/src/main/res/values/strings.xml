@@ -17,6 +17,7 @@
     <string name="save_changes">Guardar Cambios</string>
     <string name="edit">Editar</string>
     <string name="titulo">Titulo Nota</string>
+    <string name="blabla">Texto de la Nota</string>
     <string name="fecha">fecha</string>
     <string name="hora">hora</string>
     <string name="content_desc_happyFace">Imagen de cara sonrriente</string>
