@@ -20,6 +20,7 @@
     <string name="blabla">Texto de la Nota</string>
     <string name="fecha">fecha</string>
     <string name="hora">hora</string>
+    <string name="emptyNota">Aun no hay notas que mostrar. \n Pulsa el icono (+) en el menu para añadir una nota.</string>
     <string name="content_desc_happyFace">Imagen de cara sonrriente</string>
     <string name="content_desc_verNotas">Imagen de un folio escrito para visualizar las notras del cliente</string>
     <string name="content_desc_anadeNota">Imagen de un folio con simbolo de más para añadir una nota</string>
@@ -27,5 +28,7 @@
     <string name="content_desc_galeria">Imagen para abrir la galeria de fotos</string>
     <string name="content_desc_editaCliente">Imagen de un boli, es boton para editar el cliente</string>
     <string name="back">Volver</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
