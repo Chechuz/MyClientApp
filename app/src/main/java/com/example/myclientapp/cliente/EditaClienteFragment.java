@@ -87,7 +87,13 @@ public class EditaClienteFragment extends Fragment {
         startActivity(intent);
     }
     protected void guardaCambios(){
-        Cliente clEditado = new Cliente();  // poner los datos de los edti t
+        String nom, dir, tel, email, otro;
+        nom= verNom.getText().toString();
+        dir = verDir.getText().toString();
+        tel=verTel.getText().toString();
+        email=verEmail.getText().toString();
+        otro=verOtro.getText().toString();
+        Cliente clEditado = new Cliente(nom, dir, tel, email, otro);
         DataBase db = new DataBase(getContext());
         db.editaCliente(clEditado);
         Intent intent = new Intent(getContext(), MainActivity.class);
