@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.example.myclientapp.MainActivity;
 import com.example.myclientapp.R;
 import com.example.myclientapp.bbdd.DataBase;
+import com.example.myclientapp.notas.NotasActivity;
+import com.example.myclientapp.notas.NuevaNotaFragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -112,5 +114,18 @@ public class ClientActivity extends AppCompatActivity {
                 viewCliente.setVisibility(View.INVISIBLE);
             }
         });
+    }
+    public void verNotas(View view){
+        Intent intent = new Intent(ClientActivity.this, NotasActivity.class);
+        startActivity(intent);
+    }
+    public void addNota(View view){
+        NuevaNotaFragment fragmentNuevaNota = new NuevaNotaFragment();
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor_editClient,fragmentNuevaNota);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        viewCliente.setVisibility(View.INVISIBLE);
+
     }
 }

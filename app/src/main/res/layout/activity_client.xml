@@ -206,6 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/content_desc_verNotas"
+                    android:onClick="verNotas"
                     app:srcCompat="@drawable/vernotas" />
 
                 <ImageButton
@@ -213,6 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/content_desc_anadeNota"
+                    android:onClick="addNota"
                     app:srcCompat="@drawable/addnota" />
 
                 <ImageButton
