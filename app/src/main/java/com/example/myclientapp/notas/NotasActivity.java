@@ -15,11 +15,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.myclientapp.R;
-import com.example.myclientapp.adapter.AdapterCliente;
 import com.example.myclientapp.adapter.AdapterNotas;
 import com.example.myclientapp.bbdd.DataBase;
-import com.example.myclientapp.cliente.Cliente;
-import com.example.myclientapp.cliente.NuevoClienteFragment;
+
 
 import java.util.List;
 
