@@ -6,12 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.myclientapp.cliente.Cliente;
-import com.example.myclientapp.notas.Notas_modelo;
+import com.example.myclientapp.notas.Notas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +73,7 @@ public class DataBase extends SQLiteOpenHelper {
     //  -----^¨^¨^¨^¨  METODODS PARA  N O T A S   ¨^¨^¨^¨^¨---------
 
     //METODO QUE AÑADE  NOTAS   (metodo .put)
-    public long anadeNota(Notas_modelo notaModelo){
+    public long anadeNota(Notas notaModelo){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
         contentValues.put(COLUMN_TITLE, notaModelo.getTitulo());
@@ -88,14 +87,14 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     // creo el Array para almacenar los datos QUE SE MOSTRARÁ EN EL RECYCLER
-    public List<Notas_modelo> getNote(){
+    public List<Notas> getNote(){
         SQLiteDatabase db = this.getReadableDatabase();
-        List <Notas_modelo> notas = new ArrayList<>();
+        List <Notas> notas = new ArrayList<>();
         String querySt= "SELECT * FROM "+ DB_TABLE_NOTAS;  //AQUI DEBO AÑADIR EL "WHERE ClientID =id"
         Cursor cursor= db.rawQuery(querySt, null);
         if(cursor.moveToFirst()){
             do{
-                Notas_modelo notaModelo = new Notas_modelo();
+                Notas notaModelo = new Notas();
                 notaModelo.setId(cursor.getInt(0));
                 notaModelo.setTitulo(cursor.getString(1));
                 notaModelo.setDetalle(cursor.getString(2));
@@ -109,13 +108,13 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     //   METODO QUE OBTIENE UNA NOTA DE LA TABLA SEGUN SU ID (para poner en el OnClick del view holder
-    public Notas_modelo getNotas(int id){
+    public Notas getNotas(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         String [] query = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DETAILS, COLUMN_DATE, COLUMN_TIME};
         Cursor cursor = db.query(DB_TABLE_NOTAS, query, COLUMN_ID + "=?", new String[]{String.valueOf(id)},null,null,null,null);
         if(cursor!=null)
             cursor.moveToFirst();
-        return new Notas_modelo(
+        return new Notas(
                 Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1),
                 cursor.getString(2),
