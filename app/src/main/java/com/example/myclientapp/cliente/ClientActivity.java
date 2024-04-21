@@ -100,7 +100,7 @@ public class ClientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("key",id);
+                bundle.putInt("id",id); //
 
                 fragmentEditaCl= new EditaClienteFragment();
                 fragmentEditaCl.setArguments(bundle);

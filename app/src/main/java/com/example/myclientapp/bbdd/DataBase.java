@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -197,6 +198,7 @@ public class DataBase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_CLIENT_OTHER, cliente.getOtro());
 
         db.update(DB_TABLE_CLIENTES, contentValues, COLUMN_ID + " = "+cliente.getId(), null);
+
         db.close();
 
     }

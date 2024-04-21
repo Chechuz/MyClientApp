@@ -16,6 +16,7 @@ import com.example.myclientapp.MainActivity;
 import com.example.myclientapp.R;
 import com.example.myclientapp.bbdd.DataBase;
 
+import java.sql.SQLClientInfoException;
 import java.util.List;
 
 
@@ -52,7 +53,25 @@ public class EditaClienteFragment extends Fragment {
         btnCancel = root.findViewById(R.id.btn_cancelar1);
         btnGuardar = root.findViewById(R.id.btn_guardar1);
 
-        id = getArguments().getInt("key");
+        obtieneDatos();
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnMain();
+            }
+        });
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardaCambios();
+            }
+        });
+        return root;
+    }
+
+    protected void obtieneDatos(){
+        id = getArguments().getInt("id");
         DataBase db = new DataBase(getContext());
         clAeditar = db.getClientes(id);
 
@@ -61,24 +80,20 @@ public class EditaClienteFragment extends Fragment {
         verTel.setText(clAeditar.getTelefono());
         verEmail.setText(clAeditar.getEmail());
         verOtro.setText(clAeditar.getOtro());
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.editaCliente(clAeditar);
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-                // aviso al usuario que el cliente ha sido actualizado
-                Toast.makeText(getContext(), "Cliente actualizado", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return root;
+    }
+
+    protected void returnMain(){
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+    }
+    protected void guardaCambios(){
+        Cliente clEditado = new Cliente();  // poner los datos de los edti t
+        DataBase db = new DataBase(getContext());
+        db.editaCliente(clEditado);
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        // aviso al usuario que el cliente ha sido actualizado
+        Toast.makeText(getContext(), "Cliente actualizado", Toast.LENGTH_SHORT).show();
     }
 
 }
