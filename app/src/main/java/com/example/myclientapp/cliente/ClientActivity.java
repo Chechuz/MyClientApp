@@ -102,7 +102,7 @@ public class ClientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("id",id); //
+                bundle.putInt("id",id);
 
                 fragmentEditaCl= new EditaClienteFragment();
                 fragmentEditaCl.setArguments(bundle);
@@ -117,6 +117,7 @@ public class ClientActivity extends AppCompatActivity {
     }
     public void verNotas(View view){
         Intent intent = new Intent(ClientActivity.this, NotasActivity.class);
+        intent.putExtra("id_cl", clModelo.getId());
         startActivity(intent);
     }
     public void addNota(View view){
