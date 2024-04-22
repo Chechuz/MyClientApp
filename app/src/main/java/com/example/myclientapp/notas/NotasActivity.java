@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,7 +45,6 @@ public class NotasActivity extends AppCompatActivity {
         //Obtengo el id del cliente que estaba visualizando
         Intent intent = getIntent();
         id = intent.getIntExtra("id_cl", 0);
-        clModelo = db.getClientes(id);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
@@ -66,6 +66,7 @@ public class NotasActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.add){
             Bundle bundle = new Bundle();
             bundle.putInt("idCl",id);
+            Log.i("id cliente",String.valueOf(id));
             fragmentNuevaNota= new NuevaNotaFragment();
             fragmentNuevaNota.setArguments(bundle);
             fragmentTransaction=getSupportFragmentManager().beginTransaction()
