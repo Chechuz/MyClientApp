@@ -72,21 +72,22 @@ public class DataBase extends SQLiteOpenHelper {
 
     //  -----^¨^¨^¨^¨  METODODS PARA  N O T A S   ¨^¨^¨^¨^¨---------
 
-    //METODO QUE AÑADE  NOTAS   (metodo .put)
-    public long anadeNota(Notas notaModelo){
+    //METODO QUE AÑADE  NOTAS   (metodo SQL .insert  )
+    public long anadeNota(Notas notaModelo, Cliente cliente){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
         contentValues.put(COLUMN_TITLE, notaModelo.getTitulo());
         contentValues.put(COLUMN_DETAILS, notaModelo.getDetalle());
         contentValues.put(COLUMN_DATE, notaModelo.getFecha());
         contentValues.put(COLUMN_TIME, notaModelo.getHora());
+        contentValues.put(COLUMN_FOREIGN_KEY, cliente.getId());
 
         long ID= db.insert(DB_TABLE_NOTAS, null, contentValues);
         Log.d("Insertado", "id-->"+ID);
         return ID;
     }
 
-    // creo el Array para almacenar los datos QUE SE MOSTRARÁ EN EL RECYCLER
+    // creo el Array para almacenar los datos QUE SE MOSTRARÁ EN EL RECYCLER **VER COMO USAR LA CLAVE FORANEA
     public List<Notas> getNote(){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Notas> notas = new ArrayList<>();
