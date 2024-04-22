@@ -64,22 +64,23 @@ public class NuevaNotaFragment extends Fragment {
 
         //Obtengo datos del Cliente
         id = getArguments().getInt("idCl");
-        DataBase db = new DataBase(getContext());
-        cliente = db.getClientes(id);
+        Log.i("id cliente en vista nueva nota",String.valueOf(id));
+
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               almacenaNota();
             }
         });
+
         return root;
     }
 
     protected void almacenaNota(){
         notaModelo= new Notas(titulo.getText().toString(), detalle.getText().toString(),fecha, hora);
         DataBase db = new DataBase(getContext());
-        db.anadeNota(notaModelo, cliente);
+        db.anadeNota(notaModelo, id);
         // Pongo el intent para volver al main
         Intent intent = new Intent(getContext(), NotasActivity.class);
         startActivity(intent);

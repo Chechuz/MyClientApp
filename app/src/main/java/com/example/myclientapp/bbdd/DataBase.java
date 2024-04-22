@@ -73,14 +73,14 @@ public class DataBase extends SQLiteOpenHelper {
     //  -----^¨^¨^¨^¨  METODODS PARA  N O T A S   ¨^¨^¨^¨^¨---------
 
     //METODO QUE AÑADE  NOTAS   (metodo SQL .insert  )
-    public long anadeNota(Notas notaModelo, Cliente cliente){
+    public long anadeNota(Notas notaModelo, int id){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
         contentValues.put(COLUMN_TITLE, notaModelo.getTitulo());
         contentValues.put(COLUMN_DETAILS, notaModelo.getDetalle());
         contentValues.put(COLUMN_DATE, notaModelo.getFecha());
         contentValues.put(COLUMN_TIME, notaModelo.getHora());
-        contentValues.put(COLUMN_FOREIGN_KEY, cliente.getId());
+        contentValues.put(COLUMN_FOREIGN_KEY, id);
 
         long ID= db.insert(DB_TABLE_NOTAS, null, contentValues);
         Log.d("Insertado", "id-->"+ID);
