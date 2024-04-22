@@ -87,20 +87,20 @@ public class DataBase extends SQLiteOpenHelper {
         return ID;
     }
 
-    // creo el Array para almacenar los datos QUE SE MOSTRARÁ EN EL RECYCLER **VER COMO USAR LA CLAVE FORANEA
+    // creo el Array para almacenar los datos QUE SE MOSTRARÁ EN EL RECYCLER
     public List<Notas> getNote(){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Notas> notas = new ArrayList<>();
-        String querySt= "SELECT * FROM "+ DB_TABLE_NOTAS;  //AQUI DEBO AÑADIR EL "WHERE ClientID =id"
+        String querySt= "SELECT * FROM "+ DB_TABLE_NOTAS;
         Cursor cursor= db.rawQuery(querySt, null);
         if(cursor.moveToFirst()){
             do{
                 Notas notaModelo = new Notas();
                 notaModelo.setId(cursor.getInt(0));
-                notaModelo.setTitulo(cursor.getString(1));
-                notaModelo.setDetalle(cursor.getString(2));
-                notaModelo.setFecha(cursor.getString(3));
-                notaModelo.setHora(cursor.getString(4));
+                notaModelo.setTitulo(cursor.getString(2));
+                notaModelo.setDetalle(cursor.getString(3));
+                notaModelo.setFecha(cursor.getString(4));
+                notaModelo.setHora(cursor.getString(5));
 
                 notas.add(notaModelo);
             } while (cursor.moveToNext());
@@ -108,7 +108,7 @@ public class DataBase extends SQLiteOpenHelper {
         return notas;
     }
 
-    //   METODO QUE OBTIENE UNA NOTA DE LA TABLA SEGUN SU ID (para poner en el OnClick del view holder
+    //   METODO QUE OBTIENE UNA NOTA DE LA TABLA SEGUN SU ID (para MOSTRARLA cuando le hago click)
     public Notas getNotas(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         String [] query = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DETAILS, COLUMN_DATE, COLUMN_TIME};
@@ -117,10 +117,10 @@ public class DataBase extends SQLiteOpenHelper {
             cursor.moveToFirst();
         return new Notas(
                 Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3),
-                cursor.getString(4));
+                cursor.getString(4),
+                cursor.getString(5));
     }
 //    METODO QUE ELIMINA UNA NOTA PASANDO SU ID COMO PARÁMETRO
     void eliminaNota(int id){
