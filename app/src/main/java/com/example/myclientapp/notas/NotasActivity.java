@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.example.myclientapp.R;
 import com.example.myclientapp.adapter.AdapterNotas;
 import com.example.myclientapp.bbdd.DataBase;
+import com.example.myclientapp.cliente.Cliente;
 
 
 import java.util.List;
@@ -28,6 +30,8 @@ public class NotasActivity extends AppCompatActivity {
     List<Notas> listaNotas;
     Fragment fragmentNuevaNota;
     FragmentTransaction fragmentTransaction;
+    Cliente clModelo;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +39,12 @@ public class NotasActivity extends AppCompatActivity {
         tvEmptyNotas = findViewById(R.id.tvEmptyNotas);
         tvEmptyNotas.setVisibility(View.INVISIBLE);
         recycler = findViewById(R.id.recycler_notas);
-        DataBase notasDB = new DataBase(this);
-        listaNotas = notasDB.getNote();  //llamo al List de la bbdd
+        DataBase db = new DataBase(this);
+        listaNotas = db.getNote();  //llamo al List de la bbdd
+        //Obtengo el id del cliente que estaba visualizando
+        Intent intent = getIntent();
+        id = intent.getIntExtra("id_cl", 0);
+        clModelo = db.getClientes(id);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
@@ -56,10 +64,13 @@ public class NotasActivity extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.add){
+            Bundle bundle = new Bundle();
+            bundle.putInt("idCl",id);
             fragmentNuevaNota= new NuevaNotaFragment();
-            fragmentTransaction=getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.contenedor_nueva_nota,fragmentNuevaNota);
-            fragmentTransaction.addToBackStack(null);
+            fragmentNuevaNota.setArguments(bundle);
+            fragmentTransaction=getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contenedor_nueva_nota,fragmentNuevaNota)
+                .addToBackStack(null);
             fragmentTransaction.commit();
             recycler.setVisibility(View.GONE);
             tvEmptyNotas.setVisibility(View.GONE);}
