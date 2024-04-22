@@ -121,12 +121,13 @@ public class ClientActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void addNota(View view){
-        NuevaNotaFragment fragmentNuevaNota = new NuevaNotaFragment();
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.contenedor_editClient,fragmentNuevaNota);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-        viewCliente.setVisibility(View.INVISIBLE);
+       NuevaNotaFragment fragmentNuevaNota = new NuevaNotaFragment();
+       fragmentTransaction=getSupportFragmentManager().beginTransaction();
+       fragmentTransaction.replace(R.id.contenedor_nuevaNota,fragmentNuevaNota);
+       fragmentTransaction.addToBackStack(null);
+       fragmentTransaction.commit();
+       viewCliente.setVisibility(View.INVISIBLE);
+
 
     }
 }
