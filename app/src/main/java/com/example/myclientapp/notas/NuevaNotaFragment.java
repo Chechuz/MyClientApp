@@ -52,7 +52,7 @@ public class NuevaNotaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_nueva_nota, container, false);
-        titulo = root.findViewById(R.id.anadeNota);
+        titulo = root.findViewById(R.id.noteTitle);
         detalle = root.findViewById(R.id.cuerpoNota);
         guardar = root.findViewById(R.id.btn_guardaNota);
 

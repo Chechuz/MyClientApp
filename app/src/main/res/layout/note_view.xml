@@ -48,12 +48,23 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
                         android:text="@string/titulo"
-                        android:textColor="#000000"
+                        android:textColor="@color/navy_blue"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/nFecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="148dp"
+                        android:text="@string/fecha"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nTitulo"
+                        app:layout_constraintVertical_bias="0.608" />
 
                     <TextView
                         android:id="@+id/nHora"
@@ -62,19 +73,10 @@
                         android:text="@string/hora"
                         app:layout_constraintBottom_toBottomOf="@+id/nFecha"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.04"
+                        app:layout_constraintHorizontal_bias="0.829"
                         app:layout_constraintStart_toEndOf="@+id/nFecha" />
 
-                    <TextView
-                        android:id="@+id/nFecha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/fecha"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nTitulo"
-                        app:layout_constraintVertical_bias="0.64" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
