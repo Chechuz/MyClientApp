@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -121,7 +122,11 @@ public class ClientActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void addNota(View view){
+        Bundle bundle = new Bundle();
+        bundle.putInt("idCl",clModelo.getId());
+        Log.i("id cl en ClientActivity",String.valueOf(clModelo.getId()));
        NuevaNotaFragment fragmentNuevaNota = new NuevaNotaFragment();
+       fragmentNuevaNota.setArguments(bundle);
        fragmentTransaction=getSupportFragmentManager().beginTransaction();
        fragmentTransaction.replace(R.id.contenedor_nuevaNota,fragmentNuevaNota);
        fragmentTransaction.addToBackStack(null);
