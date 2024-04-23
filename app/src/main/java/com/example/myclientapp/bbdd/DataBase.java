@@ -111,19 +111,20 @@ public class DataBase extends SQLiteOpenHelper {
     //   METODO QUE OBTIENE UNA NOTA DE LA TABLA SEGUN SU ID (para MOSTRARLA cuando le hago click)
     public Notas getNotas(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        String [] query = new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_DETAILS, COLUMN_DATE, COLUMN_TIME};
+        String [] query = new String[]{COLUMN_ID, COLUMN_FOREIGN_KEY, COLUMN_TITLE, COLUMN_DETAILS, COLUMN_DATE, COLUMN_TIME};
         Cursor cursor = db.query(DB_TABLE_NOTAS, query, COLUMN_ID + "=?", new String[]{String.valueOf(id)},null,null,null,null);
         if(cursor!=null)
             cursor.moveToFirst();
         return new Notas(
                 Integer.parseInt(cursor.getString(0)),
+                Integer.parseInt(cursor.getString(1)),
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
                 cursor.getString(5));
     }
 //    METODO QUE ELIMINA UNA NOTA PASANDO SU ID COMO PARÁMETRO
-    void eliminaNota(int id){
+    public void eliminaNota(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         db.delete(DB_TABLE_NOTAS, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
