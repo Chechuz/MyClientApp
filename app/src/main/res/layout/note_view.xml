@@ -59,7 +59,7 @@
                         android:id="@+id/nFecha"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="148dp"
+                        android:layout_marginStart="80dp"
                         android:text="@string/fecha"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -73,8 +73,7 @@
                         android:text="@string/hora"
                         app:layout_constraintBottom_toBottomOf="@+id/nFecha"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.829"
-                        app:layout_constraintStart_toEndOf="@+id/nFecha" />
+                        app:layout_constraintHorizontal_bias="0.829"/>
 
 
 
