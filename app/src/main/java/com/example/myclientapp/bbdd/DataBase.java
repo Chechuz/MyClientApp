@@ -97,6 +97,7 @@ public class DataBase extends SQLiteOpenHelper {
             do{
                 Notas notaModelo = new Notas();
                 notaModelo.setId(cursor.getInt(0));
+                //notaModelo.setFk(cursor.getInt(1));
                 notaModelo.setTitulo(cursor.getString(2));
                 notaModelo.setDetalle(cursor.getString(3));
                 notaModelo.setFecha(cursor.getString(4));

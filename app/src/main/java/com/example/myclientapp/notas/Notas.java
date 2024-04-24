@@ -38,6 +38,15 @@ public class Notas {
         this.id = id;
     }
 
+    public int getFk() {
+        return fk;
+    }
+
+    public void setFk(int fk) {
+        this.id = fk;
+    }
+
+
     public String getTitulo() {
         return titulo;
     }
