@@ -93,7 +93,7 @@ public class EditaClienteFragment extends Fragment {
         tel=verTel.getText().toString();
         email=verEmail.getText().toString();
         otro=verOtro.getText().toString();
-        Cliente clEditado = new Cliente(nom, dir, tel, email, otro);
+        Cliente clEditado = new Cliente(id,nom, dir, tel, email, otro);
         DataBase db = new DataBase(getContext());
         db.editaCliente(clEditado);
         Intent intent = new Intent(getContext(), MainActivity.class);
