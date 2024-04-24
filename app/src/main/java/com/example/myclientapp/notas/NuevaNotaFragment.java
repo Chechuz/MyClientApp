@@ -83,6 +83,7 @@ public class NuevaNotaFragment extends Fragment {
         db.anadeNota(notaModelo, id);
         // Pongo el intent para volver al main
         Intent intent = new Intent(getContext(), NotasActivity.class);
+        intent.putExtra("id_cl",id);
         startActivity(intent);
         // aviso al usuario que la nota ha sido guardada
         Toast.makeText(getContext(), "Nota guardada", Toast.LENGTH_SHORT).show();
