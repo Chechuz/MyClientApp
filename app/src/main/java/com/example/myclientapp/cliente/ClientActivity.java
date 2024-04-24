@@ -99,22 +99,7 @@ public class ClientActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("id",id);
 
-                fragmentEditaCl= new EditaClienteFragment();
-                fragmentEditaCl.setArguments(bundle);
-                fragmentTransaction=getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contenedor_editClient,fragmentEditaCl);
-                fragmentTransaction.addToBackStack(null)
-                        .commit();
-
-                viewCliente.setVisibility(View.INVISIBLE);
-            }
-        });
     }
     public void verNotas(View view){
         Intent intent = new Intent(ClientActivity.this, NotasActivity.class);
@@ -132,7 +117,18 @@ public class ClientActivity extends AppCompatActivity {
        fragmentTransaction.addToBackStack(null);
        fragmentTransaction.commit();
        viewCliente.setVisibility(View.INVISIBLE);
+    }
+    public void editClient(View view){
+        Bundle bundle = new Bundle();
+        bundle.putInt("id",id);
 
+        fragmentEditaCl= new EditaClienteFragment();
+        fragmentEditaCl.setArguments(bundle);
+        fragmentTransaction=getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contenedor_editClient,fragmentEditaCl);
+        fragmentTransaction.addToBackStack(null)
+                .commit();
 
+        viewCliente.setVisibility(View.INVISIBLE);
     }
 }
