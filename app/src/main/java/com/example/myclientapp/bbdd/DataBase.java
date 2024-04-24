@@ -88,10 +88,10 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     // creo el Array para almacenar los datos QUE SE MOSTRARÁ EN EL RECYCLER
-    public List<Notas> getNote(){
+    public List<Notas> getNote(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         List <Notas> notas = new ArrayList<>();
-        String querySt= "SELECT * FROM "+ DB_TABLE_NOTAS;
+        String querySt= "SELECT * FROM "+ DB_TABLE_NOTAS + " WHERE "+COLUMN_FOREIGN_KEY + " = "+ id;
         Cursor cursor= db.rawQuery(querySt, null);
         if(cursor.moveToFirst()){
             do{

@@ -43,11 +43,13 @@ public class NotasActivity extends AppCompatActivity {
         tvEmptyNotas = findViewById(R.id.tvEmptyNotas);
         tvEmptyNotas.setVisibility(View.INVISIBLE);
         recycler = findViewById(R.id.recycler_notas);
+
         DataBase db = new DataBase(this);
-        listaNotas = db.getNote();  //llamo al List de la bbdd
         //Obtengo el id del cliente que estaba visualizando
         Intent intent = getIntent();
         id = intent.getIntExtra("id_cl", 0);
+        listaNotas = db.getNote(id);  //llamo al List de la bbdd
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
