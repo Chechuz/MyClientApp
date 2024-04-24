@@ -14,11 +14,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myclientapp.R;
 import com.example.myclientapp.adapter.AdapterNotas;
 import com.example.myclientapp.bbdd.DataBase;
+import com.example.myclientapp.cliente.ClientActivity;
 import com.example.myclientapp.cliente.Cliente;
 
 
@@ -31,12 +33,13 @@ public class NotasActivity extends AppCompatActivity {
     List<Notas> listaNotas;
     Fragment fragmentNuevaNota;
     FragmentTransaction fragmentTransaction;
-    Cliente clModelo;
+    Button btn_volver;
     int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
+        btn_volver = findViewById(R.id.btn_volver);
         tvEmptyNotas = findViewById(R.id.tvEmptyNotas);
         tvEmptyNotas.setVisibility(View.INVISIBLE);
         recycler = findViewById(R.id.recycler_notas);
@@ -56,6 +59,12 @@ public class NotasActivity extends AppCompatActivity {
         if(listaNotas.isEmpty()){
             tvEmptyNotas.setVisibility(View.VISIBLE);
         }
+        btn_volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                volverAcliente();
+            }
+        });
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -76,5 +85,10 @@ public class NotasActivity extends AppCompatActivity {
             recycler.setVisibility(View.GONE);
             tvEmptyNotas.setVisibility(View.GONE);}
         return super.onOptionsItemSelected(item);
+    }
+    public void volverAcliente(){
+        Intent i = new Intent(NotasActivity.this, ClientActivity.class);
+        i.putExtra("ID", id);
+        startActivity(i);
     }
 }
