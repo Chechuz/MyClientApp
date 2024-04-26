@@ -39,7 +39,7 @@ public class AdapterGaleria extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = new ImageView(context);
-        imageView.setImageURI(Uri.parse(imageList.get(position).getImageUri()));
+        imageView.setImageURI(Uri.parse(imageList.get(position).getImageUri())); // como el getImgURI es un string lo parseo a URI con URI.parse
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setLayoutParams(new GridView.LayoutParams(340, 350));
         return imageView;

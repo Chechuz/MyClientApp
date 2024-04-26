@@ -233,10 +233,10 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     // Paso como parametro un objeto Imagenes y el id FK del cliente
-    public long anadeImagen(Imagenes imagen, int id){
+    public long anadeImagen(String uri, int id){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
-        contentValues.put(COLUMN_IMAGENES_PATH, imagen.getImageUri());
+        contentValues.put(COLUMN_IMAGENES_PATH, uri);
         contentValues.put(COLUMN_FOREIGN_KEY, id);
 
         long ID= db.insert(DB_TABLE_IMAGENES, null, contentValues);
