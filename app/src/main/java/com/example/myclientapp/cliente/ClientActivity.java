@@ -9,12 +9,14 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.Environment;
@@ -34,10 +36,12 @@ import android.widget.Toast;
 import com.example.myclientapp.MainActivity;
 import com.example.myclientapp.R;
 import com.example.myclientapp.bbdd.DataBase;
+import com.example.myclientapp.camara.GaleryActivity;
 import com.example.myclientapp.notas.NotasActivity;
 import com.example.myclientapp.notas.NuevaNotaFragment;
 
 import java.io.File;
+import java.io.IOException;
 
 public class ClientActivity extends AppCompatActivity {
   TextView verNom, verTel, verDir, verEmail, verOtro;
@@ -47,10 +51,8 @@ public class ClientActivity extends AppCompatActivity {
   FragmentTransaction fragmentTransaction;
   LinearLayout viewCliente;
   Cliente clModelo;
-  ActivityResultLauncher<Intent> cameraLauncher;
-  ImageView imageView;
-  File photo;
-  protected String name, path;
+  String rutaImagen;
+
   int id;
 
     @Override
@@ -120,11 +122,36 @@ public class ClientActivity extends AppCompatActivity {
         btn_camara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkForPermission();
+                if(validarPermisos()){
+                    takePicture();
+                }else{
+                    Toast.makeText(ClientActivity.this, "DEBE DAR LOS PERMISOS", Toast.LENGTH_LONG).show();
+                    loadRecomendationDialog();
+                }
             }
         });
 
     }
+
+    private boolean validarPermisos() {
+        if(Build.VERSION.PREVIEW_SDK_INT<Build.VERSION_CODES.M){
+            return  true;
+        }
+        if((checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED)&&
+                (checkSelfPermission(WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)){
+            return true;
+        }
+
+        if((shouldShowRequestPermissionRationale(CAMERA)) ||
+                (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
+            loadRecomendationDialog();
+            }else{
+            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+            }
+        Toast.makeText(ClientActivity.this, "DEBE DAR LOS PERMISOS", Toast.LENGTH_LONG).show();
+        return false;
+    }
+
     public void verNotas(View view){
         Intent intent = new Intent(ClientActivity.this, NotasActivity.class);
         intent.putExtra("id_cl", clModelo.getId());
@@ -156,29 +183,8 @@ public class ClientActivity extends AppCompatActivity {
         viewCliente.setVisibility(View.INVISIBLE);
     }
     ///Metodos para habilitar la camara y tomar fotos
-        private boolean checkForPermission() {
-            if((checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED) && (checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)){
-                takePicture();
-                return true;
-            }
-            if((shouldShowRequestPermissionRationale(CAMERA))||(shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
-                loadRecomendationDialog();
-            }else {
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, 100);
-            }
-            return false;
-        }
 
-        @Override
-        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            if(requestCode == 100){
-                if(grantResults.length==2 && grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED){
-                   takePicture();
-                }
-            }
-        }
 
         private void loadRecomendationDialog() {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ClientActivity.this);
@@ -193,58 +199,42 @@ public class ClientActivity extends AppCompatActivity {
             dialog.show();
         }
     public void takePicture(){
-        String ROOT_FOLDER = "myClientTrack/";
-        String IMAGE_ROOT = ROOT_FOLDER + "images";
-        File fileImg = new File(Environment.getExternalStorageDirectory(), IMAGE_ROOT);
-        boolean isTaken = fileImg.exists();
+        Log.i("accede a takePicture()", "si accede");
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        if(!isTaken){
-            isTaken=fileImg.mkdirs();
+        File imgArchivo = null;
+        try {
+            imgArchivo = crearImagen();
+        }catch (IOException ex){
+            Log.e("ERROR", ex.toString());
         }
-        if(isTaken){
-            name= (System.currentTimeMillis()/1000)+".jpg";
+
+        if(imgArchivo!=null){
+            Uri fotoUri = FileProvider.getUriForFile(this, "com.example.myclientapp.fileprovider", imgArchivo);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, fotoUri);
+            startActivityForResult(intent, 10);
         }
-        path=Environment.getExternalStorageDirectory()+ File.separator+ IMAGE_ROOT +File.separator+name;
+    }
+    private File crearImagen() throws IOException {
+        String nombreImg = "foto_";
+        File directorio = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imagenFile = File.createTempFile(nombreImg, ".jpg", directorio);
 
-        photo = new File(path);
-
-        // hago la llamada a la CAMARA
-
-
-         Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-         takePicIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-         takePicIntent.putExtra("idCliente",id);
-         startActivityForResult(takePicIntent, 1);    //********* DEPRECATE********
-
-/**
-        cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>(){
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode()==RESULT_OK){
-                    assert result.getData() != null;
-                    Bundle extras = result.getData().getExtras();
-                    assert extras != null;
-                    Bitmap imgBitmap = (Bitmap) extras.get("data");
-                    // imgView.setImageBitmap(imgBitmap);
-                    Uri uriPath = (Uri) extras.get("uriData");
-                    imageView.setImageURI(uriPath);
-                }
-
-            }
-        });
-        **/
+        rutaImagen = imagenFile.getAbsolutePath();
+        return imagenFile;
     }
 
-        /**
-    public void setPicture(){
-        cameraLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE));
-        Intent intent= new Intent();
-        intent.putExtra("uriData", Uri.fromFile(photo));
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10 && resultCode == RESULT_OK) {
+            Intent iGaleria = new Intent(ClientActivity.this, GaleryActivity.class);
+            Bundle extras = new Bundle();
+            extras.putString("image_path", rutaImagen);
+            extras.putInt("id_cliente", id);
+            iGaleria.putExtras(extras);
+            startActivity(iGaleria);
+        }
     }
-         */
-
-
-
 
 
   }

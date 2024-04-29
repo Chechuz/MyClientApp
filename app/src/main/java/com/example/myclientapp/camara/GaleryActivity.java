@@ -21,27 +21,7 @@ public class GaleryActivity extends AppCompatActivity {
     GridView gridView;
     List<Imagenes> imagList;
     String path;
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==RESULT_OK){
-            if(requestCode==1) {
-                Uri miPath;
-                int id;
-                MediaScannerConnection.scanFile(this, new String[]{path}, null, new MediaScannerConnection.OnScanCompletedListener() {
-                    @Override
-                    public void onScanCompleted(String path, Uri uri) {
-                        Log.i("Ruta de almacenamiento", "Path " + path);
-                    }
-                });
-                miPath = data.getData();
-                id = data.getIntExtra("idCliente",0);  //recibe el id del cliente que tomó la foto
-                String uri = String.valueOf(miPath);
-                DataBase imgDB = new DataBase(this);
-                imgDB.anadeImagen(uri, id);      //  añado la imagen a la bbdd
-            }
-        }
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

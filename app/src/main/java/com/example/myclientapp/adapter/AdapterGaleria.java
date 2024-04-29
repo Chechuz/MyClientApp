@@ -19,7 +19,7 @@ public class AdapterGaleria extends BaseAdapter {
 
     public AdapterGaleria(Context context, List<Imagenes> imageList){
         this.context=context;
-        this.imageList=imageList;
+        this.imageList=imageList; 
     }
     @Override
     public int getCount() {
