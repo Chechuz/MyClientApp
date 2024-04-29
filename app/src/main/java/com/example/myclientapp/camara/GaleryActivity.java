@@ -21,11 +21,13 @@ public class GaleryActivity extends AppCompatActivity {
     GridView gridView;
     List<Imagenes> imagList;
     int id;
-
+    String nombre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
+        getSupportActionBar().setTitle("Galería de Fotos");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         id = getIntent().getIntExtra("id_cliente",0);
 
@@ -36,8 +38,14 @@ public class GaleryActivity extends AppCompatActivity {
         gridView.setAdapter(new AdapterGaleria(this,imagList));  // Este adaptador recibe la lista de imagenes y devuelve un ImageView
         }
 
+        private String getNombreCl(){
+            DataBase db = new DataBase(this);
+        nombre = db.getClientes(id).getNombre();
+        return nombre;
+        }
 
 }
+
 
 
 

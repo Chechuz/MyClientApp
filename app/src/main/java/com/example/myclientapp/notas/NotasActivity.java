@@ -21,7 +21,6 @@ import com.example.myclientapp.R;
 import com.example.myclientapp.adapter.AdapterNotas;
 import com.example.myclientapp.bbdd.DataBase;
 import com.example.myclientapp.cliente.ClientActivity;
-import com.example.myclientapp.cliente.Cliente;
 
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class NotasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
-        btn_volver = findViewById(R.id.btn_volver);
+        btn_volver = findViewById(R.id.btn_back);
         tvEmptyNotas = findViewById(R.id.tvEmptyNotas);
         tvEmptyNotas.setVisibility(View.INVISIBLE);
         recycler = findViewById(R.id.recycler_notas);

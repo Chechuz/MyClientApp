@@ -4,8 +4,6 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
-import androidx.activity.result.ActivityResultLauncher;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,7 +94,7 @@ public class ClientActivity extends AppCompatActivity {
         verEmail = findViewById(R.id.tvEmail);
         verOtro = findViewById(R.id.tvOtro);
         btnEditar = findViewById(R.id.btn_editar);
-        btnVolver = findViewById(R.id.btn_volver);
+        btnVolver = findViewById(R.id.btn_back);
         btn_camara = findViewById(R.id.camara);
         btn_galeria = findViewById(R.id.galeria);
 
@@ -236,7 +233,11 @@ public class ClientActivity extends AppCompatActivity {
             DataBase imgDB = new DataBase(this);
             imgDB.anadeImagen(rutaImagen,id);
             imgDB.close();
-           abrirGaleria();
+            Intent iGaleria = new Intent(ClientActivity.this, GaleryActivity.class);
+            Bundle extras = new Bundle();
+            extras.putInt("id_cliente", id);
+            iGaleria.putExtras(extras);
+            startActivity(iGaleria);
         }
     }
 
