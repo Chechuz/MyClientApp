@@ -113,8 +113,7 @@ public class ClientActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ClientActivity.this, MainActivity.class);
-                startActivity(intent);
+                getOnBackPressedDispatcher().onBackPressed();
             }
         });
         btn_camara.setOnClickListener(new View.OnClickListener() {
@@ -185,9 +184,8 @@ public class ClientActivity extends AppCompatActivity {
 
         viewCliente.setVisibility(View.INVISIBLE);
     }
+
     ///Metodos para habilitar la camara y tomar fotos
-
-
 
     private void loadRecomendationDialog() {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ClientActivity.this);

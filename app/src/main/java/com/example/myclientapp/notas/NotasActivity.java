@@ -88,8 +88,6 @@ public class NotasActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void volverAcliente(){
-        Intent i = new Intent(NotasActivity.this, ClientActivity.class);
-        i.putExtra("ID", id);
-        startActivity(i);
+        getOnBackPressedDispatcher().onBackPressed();
     }
 }
