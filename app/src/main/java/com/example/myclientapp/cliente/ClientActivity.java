@@ -46,7 +46,7 @@ import java.io.IOException;
 public class ClientActivity extends AppCompatActivity {
   TextView verNom, verTel, verDir, verEmail, verOtro;
   Button btnEditar, btnVolver;
-  ImageButton btn_camara;
+  ImageButton btn_camara, btn_galeria;
   Fragment fragmentEditaCl;
   FragmentTransaction fragmentTransaction;
   LinearLayout viewCliente;
@@ -99,6 +99,7 @@ public class ClientActivity extends AppCompatActivity {
         btnEditar = findViewById(R.id.btn_editar);
         btnVolver = findViewById(R.id.btn_volver);
         btn_camara = findViewById(R.id.camara);
+        btn_galeria = findViewById(R.id.galeria);
 
         DataBase db = new DataBase(this);
         Intent intent = getIntent();
@@ -130,7 +131,12 @@ public class ClientActivity extends AppCompatActivity {
                 }
             }
         });
-
+        btn_galeria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirGaleria();
+            }
+        });
     }
 
     private boolean validarPermisos() {
@@ -186,7 +192,7 @@ public class ClientActivity extends AppCompatActivity {
 
 
 
-        private void loadRecomendationDialog() {
+    private void loadRecomendationDialog() {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ClientActivity.this);
             dialog.setTitle("Permisos desactivados");
             dialog.setMessage("Debe aceptar los permisos para poder tomar fotos");
@@ -230,14 +236,17 @@ public class ClientActivity extends AppCompatActivity {
             DataBase imgDB = new DataBase(this);
             imgDB.anadeImagen(rutaImagen,id);
             imgDB.close();
-
-            Intent iGaleria = new Intent(ClientActivity.this, GaleryActivity.class);
-            Bundle extras = new Bundle();
-            extras.putInt("id_cliente", id);
-            iGaleria.putExtras(extras);
-            startActivity(iGaleria);
+           abrirGaleria();
         }
     }
 
+    private void abrirGaleria() {
+        Intent iGaleria = new Intent(ClientActivity.this, GaleryActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt("id_cliente", id);
+        iGaleria.putExtras(extras);
+        startActivity(iGaleria);
+    }
 
-  }
+
+}
