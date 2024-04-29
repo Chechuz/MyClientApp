@@ -20,20 +20,21 @@ import java.util.List;
 public class GaleryActivity extends AppCompatActivity {
     GridView gridView;
     List<Imagenes> imagList;
-    String path;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
 
+        id = getIntent().getIntExtra("id_cliente",0);
+
         DataBase imgDB = new DataBase(this);
-        imagList = imgDB.getImage();
+        imagList = imgDB.getImage(id);
 
         gridView = (GridView) findViewById(R.id.gv_galery_container);
         gridView.setAdapter(new AdapterGaleria(this,imagList));  // Este adaptador recibe la lista de imagenes y devuelve un ImageView
         }
-
 
 
 }

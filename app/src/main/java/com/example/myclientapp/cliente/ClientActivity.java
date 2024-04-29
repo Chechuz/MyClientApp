@@ -227,9 +227,11 @@ public class ClientActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 10 && resultCode == RESULT_OK) {
+            DataBase imgDB = new DataBase(this);
+            imgDB.anadeImagen(rutaImagen,id);
+
             Intent iGaleria = new Intent(ClientActivity.this, GaleryActivity.class);
             Bundle extras = new Bundle();
-            extras.putString("image_path", rutaImagen);
             extras.putInt("id_cliente", id);
             iGaleria.putExtras(extras);
             startActivity(iGaleria);

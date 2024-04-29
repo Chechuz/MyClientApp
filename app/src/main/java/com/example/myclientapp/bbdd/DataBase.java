@@ -211,12 +211,12 @@ public class DataBase extends SQLiteOpenHelper {
         db.close();
     }
 // ***************   I M A G E N E S **********
-    public List<Imagenes> getImage() {
+    public List<Imagenes> getImage(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Imagenes> image_list = new ArrayList<>();
         // metodos....
 
-         String querySt = "SELECT * FROM " + DB_TABLE_IMAGENES;
+         String querySt = "SELECT * FROM " + DB_TABLE_IMAGENES + " WHERE "+COLUMN_FOREIGN_KEY + " = "+ id;;
         Cursor cursor = db.rawQuery(querySt, null);
         if (cursor.moveToFirst()) {
             do {
