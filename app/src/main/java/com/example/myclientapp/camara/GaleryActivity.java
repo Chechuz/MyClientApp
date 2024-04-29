@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,6 @@ public class GaleryActivity extends AppCompatActivity {
     GridView gridView;
     List<Imagenes> imagList;
     int id;
-    String nombre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +38,9 @@ public class GaleryActivity extends AppCompatActivity {
         gridView.setAdapter(new AdapterGaleria(this,imagList));  // Este adaptador recibe la lista de imagenes y devuelve un ImageView
         }
 
-        private String getNombreCl(){
-            DataBase db = new DataBase(this);
-        nombre = db.getClientes(id).getNombre();
-        return nombre;
+        public void volverAtras(View view){
+        getOnBackPressedDispatcher().onBackPressed();
         }
-
 }
 
 
