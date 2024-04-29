@@ -229,6 +229,7 @@ public class ClientActivity extends AppCompatActivity {
         if (requestCode == 10 && resultCode == RESULT_OK) {
             DataBase imgDB = new DataBase(this);
             imgDB.anadeImagen(rutaImagen,id);
+            imgDB.close();
 
             Intent iGaleria = new Intent(ClientActivity.this, GaleryActivity.class);
             Bundle extras = new Bundle();
