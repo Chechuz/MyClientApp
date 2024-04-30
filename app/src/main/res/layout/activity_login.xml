@@ -2,17 +2,17 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".login.Login">
 
     <ImageView
         android:id="@+id/img_user"
         android:layout_width="156dp"
         android:layout_height="155dp"
-        android:layout_marginTop="70dp"
         android:layout_gravity="center"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toTopOf="@+id/eti_user"
         tools:srcCompat="@drawable/img_user" />
 
@@ -20,24 +20,24 @@
         android:id="@+id/eti_user"
         android:layout_width="249dp"
         android:layout_height="77dp"
-        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="@string/user"
         android:inputType="text"
-        android:textSize="16sp"
-        android:layout_gravity="center"/>
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/eti_pass"
         android:layout_width="249dp"
         android:layout_height="77dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/pass"
-        android:textSize="16sp"
         android:inputType="textPassword"
-        android:layout_gravity="center"/>
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btn_entrar"
@@ -46,7 +46,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_shape"
-        android:onClick="Entrar"
+        android:onClick="entrar"
         android:text="@string/entrar"
         android:textColor="@color/white"
         android:textSize="16sp" />

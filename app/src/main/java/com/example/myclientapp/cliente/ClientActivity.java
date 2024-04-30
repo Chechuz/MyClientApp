@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientActivity extends AppCompatActivity {
-  TextView verNom, verTel, verDir, verEmail, verOtro;
-  Button btnEditar, btnVolver;
+    TextView verNom, verTel, verDir, verEmail, verOtro;
+    Button btnEditar, btnVolver;
     Fragment fragmentEditaCl;
     FragmentTransaction fragmentTransaction;
     LinearLayout viewCliente;
@@ -42,6 +42,7 @@ public class ClientActivity extends AppCompatActivity {
         cargarVista();
 
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_borrar, menu);
@@ -50,14 +51,14 @@ public class ClientActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()== android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }
-        if(item.getItemId()==R.id.delete){
-            DataBase db= new DataBase(this);
-            Intent intent= getIntent();
-            id=intent.getIntExtra("ID", 0);
+        if (item.getItemId() == R.id.delete) {
+            DataBase db = new DataBase(this);
+            Intent intent = getIntent();
+            id = intent.getIntExtra("ID", 0);
             db.eliminaCliente(id);
             Toast.makeText(getApplicationContext(), "Cliente eliminado", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(ClientActivity.this, MainActivity.class);
@@ -65,12 +66,13 @@ public class ClientActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    protected void cargarVista(){
+
+    protected void cargarVista() {
         setContentView(R.layout.activity_client);
         getSupportActionBar().setTitle("Detalle del Cliente");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewCliente = (LinearLayout)findViewById(R.id.layout_contenedor);
+        viewCliente = (LinearLayout) findViewById(R.id.layout_contenedor);
 
         verNom = findViewById(R.id.tvNom);
         verDir = findViewById(R.id.tvDir);
@@ -101,31 +103,34 @@ public class ClientActivity extends AppCompatActivity {
         });
 
     }
-    public void verNotas(View view){
+
+    public void verNotas(View view) {
         Intent intent = new Intent(ClientActivity.this, NotasActivity.class);
         intent.putExtra("id_cl", clModelo.getId());
         startActivity(intent);
     }
-    public void addNota(View view){
-        Bundle bundle = new Bundle();
-        bundle.putInt("idCl",clModelo.getId());
-        Log.i("id cl en ClientActivity",String.valueOf(clModelo.getId()));
-       NuevaNotaFragment fragmentNuevaNota = new NuevaNotaFragment();
-       fragmentNuevaNota.setArguments(bundle);
-       fragmentTransaction=getSupportFragmentManager().beginTransaction();
-       fragmentTransaction.replace(R.id.contenedor_nuevaNota,fragmentNuevaNota);
-       fragmentTransaction.addToBackStack(null);
-       fragmentTransaction.commit();
-       viewCliente.setVisibility(View.INVISIBLE);
-    }
-    public void editClient(View view){
-        Bundle bundle = new Bundle();
-        bundle.putInt("id",id);
 
-        fragmentEditaCl= new EditaClienteFragment();
+    public void addNota(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("idCl", clModelo.getId());
+        Log.i("id cl en ClientActivity", String.valueOf(clModelo.getId()));
+        NuevaNotaFragment fragmentNuevaNota = new NuevaNotaFragment();
+        fragmentNuevaNota.setArguments(bundle);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor_nuevaNota, fragmentNuevaNota);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        viewCliente.setVisibility(View.INVISIBLE);
+    }
+
+    public void editClient(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+
+        fragmentEditaCl = new EditaClienteFragment();
         fragmentEditaCl.setArguments(bundle);
-        fragmentTransaction=getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contenedor_editClient,fragmentEditaCl);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contenedor_editClient, fragmentEditaCl);
         fragmentTransaction.addToBackStack(null)
                 .commit();
 
