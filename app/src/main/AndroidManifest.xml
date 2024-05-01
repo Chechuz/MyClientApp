@@ -7,8 +7,9 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="18"/>
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -53,7 +54,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>

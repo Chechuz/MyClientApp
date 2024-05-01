@@ -108,7 +108,7 @@ public class ClientActivity extends AppCompatActivity {
         verTel.setText(clModelo.getTelefono());
         verEmail.setText(clModelo.getEmail());
         verOtro.setText(clModelo.getOtro());
-        Toast.makeText(getApplicationContext(), "id " + clModelo.getId(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), "id " + clModelo.getId(), Toast.LENGTH_SHORT).show();
 
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,12 +119,8 @@ public class ClientActivity extends AppCompatActivity {
         btn_camara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validarPermisos()){
+                if(validarPermisos())
                     takePicture();
-                }else{
-                    Toast.makeText(ClientActivity.this, "DEBE DAR LOS PERMISOS", Toast.LENGTH_LONG).show();
-                    loadRecomendationDialog();
-                }
             }
         });
         btn_galeria.setOnClickListener(new View.OnClickListener() {
@@ -136,21 +132,17 @@ public class ClientActivity extends AppCompatActivity {
     }
 
     private boolean validarPermisos() {
-        if(Build.VERSION.PREVIEW_SDK_INT<Build.VERSION_CODES.M){
-            return  true;
-        }
-        if((checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED)&&
-                (checkSelfPermission(WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)){
+        if((checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED)){
+            Log.i("validaP()", "1-CAMARA");
             return true;
+        } else{
+            requestPermissions(new String[]{CAMERA},100);
+            Log.i("validaP()", "2-Pide permiso ");
         }
-
-        if((shouldShowRequestPermissionRationale(CAMERA)) ||
-                (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE))){
+        if(shouldShowRequestPermissionRationale(CAMERA)){
             loadRecomendationDialog();
-            }else{
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
-            }
-        Toast.makeText(ClientActivity.this, "DEBE DAR LOS PERMISOS", Toast.LENGTH_LONG).show();
+            Log.i("validaP()", "3- Si niega antes, carga dialogo R");
+        }
         return false;
     }
 
@@ -194,7 +186,7 @@ public class ClientActivity extends AppCompatActivity {
             dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
-                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, 100);
+                    requestPermissions(new String[]{CAMERA}, 100);
                 }
             });
             dialog.show();
@@ -216,6 +208,7 @@ public class ClientActivity extends AppCompatActivity {
             startActivityForResult(intent, 10);
         }
     }
+    @NonNull
     private File crearImagen() throws IOException {
         String nombreImg = "foto_";
         File directorio = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -246,6 +239,5 @@ public class ClientActivity extends AppCompatActivity {
         iGaleria.putExtras(extras);
         startActivity(iGaleria);
     }
-
 
 }
