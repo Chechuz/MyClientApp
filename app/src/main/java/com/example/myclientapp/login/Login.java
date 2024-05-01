@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
         etiUser.setText(preferences.getString("user", ""));
         etiPass.setText(preferences.getString("pass", ""));
     }
-    public void Entrar (View view){
+    public void entrar (View view){
         preferences = getSharedPreferences("loginData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("user", etiUser.getText().toString());
