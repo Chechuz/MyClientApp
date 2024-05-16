@@ -63,7 +63,6 @@ public class ClientActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_borrar, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()== android.R.id.home){
@@ -131,21 +130,6 @@ public class ClientActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validarPermisos() {
-        if((checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED)){
-            Log.i("validaP()", "1-CAMARA");
-            return true;
-        } else{
-            requestPermissions(new String[]{CAMERA},100);
-            Log.i("validaP()", "2-Pide permiso ");
-        }
-        if(shouldShowRequestPermissionRationale(CAMERA)){
-            loadRecomendationDialog();
-            Log.i("validaP()", "3- Si niega antes, carga dialogo R");
-        }
-        return false;
-    }
-
     public void verNotas(View view){
         Intent intent = new Intent(ClientActivity.this, NotasActivity.class);
         intent.putExtra("id_cl", clModelo.getId());
@@ -176,9 +160,21 @@ public class ClientActivity extends AppCompatActivity {
 
         viewCliente.setVisibility(View.INVISIBLE);
     }
-
     ///Metodos para habilitar la camara y tomar fotos
-
+    private boolean validarPermisos() {
+        if((checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED)){
+            Log.i("validaP()", "1-CAMARA");
+            return true;
+        } else{
+            requestPermissions(new String[]{CAMERA},100);
+            Log.i("validaP()", "2-Pide permiso ");
+        }
+        if(shouldShowRequestPermissionRationale(CAMERA)){
+            loadRecomendationDialog();
+            Log.i("validaP()", "3- Si niega antes, carga dialogo R");
+        }
+        return false;
+    }
     private void loadRecomendationDialog() {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ClientActivity.this);
             dialog.setTitle("Permisos desactivados");
@@ -217,7 +213,6 @@ public class ClientActivity extends AppCompatActivity {
         rutaImagen = imagenFile.getAbsolutePath();
         return imagenFile;
     }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 10 && resultCode == RESULT_OK) {
@@ -231,7 +226,6 @@ public class ClientActivity extends AppCompatActivity {
             startActivity(iGaleria);
         }
     }
-
     private void abrirGaleria() {
         Intent iGaleria = new Intent(ClientActivity.this, GaleryActivity.class);
         Bundle extras = new Bundle();
