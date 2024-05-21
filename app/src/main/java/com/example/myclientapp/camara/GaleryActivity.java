@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myclientapp.R;
 import com.example.myclientapp.adapter.AdapterGaleria;
 import com.example.myclientapp.bbdd.DataBase;
+import com.example.myclientapp.cliente.ClientActivity;
+import com.example.myclientapp.notas.NotasActivity;
 
 
 import java.util.List;
@@ -39,7 +41,9 @@ public class GaleryActivity extends AppCompatActivity {
         }
 
         public void volverAtras(View view){
-        getOnBackPressedDispatcher().onBackPressed();
+            Intent intent = new Intent(GaleryActivity.this, ClientActivity.class);
+            intent.putExtra("ID",id);
+            startActivity(intent);
         }
 }
 
