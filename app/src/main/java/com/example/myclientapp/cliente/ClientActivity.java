@@ -112,7 +112,8 @@ public class ClientActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getOnBackPressedDispatcher().onBackPressed();
+                    Intent intent = new Intent(ClientActivity.this, MainActivity.class);
+                    startActivity(intent);
             }
         });
         btn_camara.setOnClickListener(new View.OnClickListener() {
