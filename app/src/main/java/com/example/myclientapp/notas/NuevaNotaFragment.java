@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.myclientapp.R;
 import com.example.myclientapp.bbdd.DataBase;
+import com.example.myclientapp.cliente.ClientActivity;
 import com.example.myclientapp.cliente.Cliente;
 
 import java.util.Calendar;
@@ -42,12 +43,11 @@ public class NuevaNotaFragment extends Fragment {
         }
     }
     EditText titulo, detalle;
-    Button guardar;
+    Button guardar, cancelar;
     String fecha, hora;
     Calendar calendario;
     Notas notaModelo;
     int id;
-    Cliente cliente;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class NuevaNotaFragment extends Fragment {
         titulo = root.findViewById(R.id.noteTitle);
         detalle = root.findViewById(R.id.cuerpoNota);
         guardar = root.findViewById(R.id.btn_guardaNota);
+        cancelar = root.findViewById(R.id.btn_cancel);
 
         //Para que muestre fecha y hora de la nota
         calendario = Calendar.getInstance();
@@ -72,6 +73,10 @@ public class NuevaNotaFragment extends Fragment {
             public void onClick(View v) {
                almacenaNota();
             }
+        });
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { back(); }
         });
 
         return root;
@@ -94,5 +99,10 @@ public class NuevaNotaFragment extends Fragment {
         if(i<0)
             return "0"+i;
         return String.valueOf(i);
+    }
+    protected void back() {
+        Intent intent = new Intent(getContext(), ClientActivity.class);
+        intent.putExtra("ID",id);
+        startActivity(intent);
     }
 }

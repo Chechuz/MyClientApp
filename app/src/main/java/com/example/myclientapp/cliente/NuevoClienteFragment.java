@@ -81,7 +81,7 @@ public class NuevoClienteFragment extends Fragment {
         Toast.makeText(getContext(), "Cliente guardado", Toast.LENGTH_SHORT).show();
     }
     protected void btnCancel(){
-        Intent intent = new Intent(getContext(), ClientActivity.class);
+        Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
     }
 }

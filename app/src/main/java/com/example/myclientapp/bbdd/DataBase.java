@@ -9,6 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.myclientapp.camara.Imagenes;
 import com.example.myclientapp.cliente.Cliente;
 import com.example.myclientapp.notas.Notas;
 
@@ -20,6 +21,7 @@ public class DataBase extends SQLiteOpenHelper {
     public static String DB_NAME="MyClientTrakDB.db";
     public static String DB_TABLE_NOTAS="TablaNotas";
     public static String DB_TABLE_CLIENTES="TablaClientes";
+    public static String DB_TABLE_IMAGENES="TablaImagenes";
 
 
     public static String COLUMN_ID="id";
@@ -33,6 +35,7 @@ public class DataBase extends SQLiteOpenHelper {
     public static String COLUMN_DETAILS="detalle";
     public static String COLUMN_DATE="fecha";
     public static String COLUMN_TIME="hora";
+    public static String COLUMN_IMAGENES_PATH="path";
 
     public DataBase(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -59,7 +62,13 @@ public class DataBase extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + COLUMN_FOREIGN_KEY +
                 ") REFERENCES " + DB_TABLE_CLIENTES + "("+ COLUMN_ID +")); " ;
         db.execSQL(queryNotas);
-
+        String queryImagenes= "CREATE TABLE "+ DB_TABLE_IMAGENES +
+                " ("+ COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_FOREIGN_KEY + " INTEGER, " +
+                COLUMN_IMAGENES_PATH + " TEXT, " +
+                "FOREIGN KEY (" + COLUMN_FOREIGN_KEY +
+                ") REFERENCES " + DB_TABLE_CLIENTES + "("+ COLUMN_ID +")); " ;
+        db.execSQL(queryImagenes);
     }
 //   ACTUALIZACION DE LA BBDD
     @Override
@@ -198,10 +207,41 @@ public class DataBase extends SQLiteOpenHelper {
         contentValues.put(COLUMN_CLIENT_PHONE, cliente.getTelefono());
         contentValues.put(COLUMN_CLIENT_EMAIL, cliente.getEmail());
         contentValues.put(COLUMN_CLIENT_OTHER, cliente.getOtro());
-
         db.update(DB_TABLE_CLIENTES, contentValues, COLUMN_ID + " = "+cliente.getId(), null);
-
         db.close();
+    }
+// ***************   I M A G E N E S **********
+    public List<Imagenes> getImage(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Imagenes> image_list = new ArrayList<>();
+        // metodos....
 
+         String querySt = "SELECT * FROM " + DB_TABLE_IMAGENES + " WHERE "+COLUMN_FOREIGN_KEY + " = "+ id;;
+        Cursor cursor = db.rawQuery(querySt, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Imagenes imagen = new Imagenes();
+                imagen.setId(cursor.getInt(0));
+                imagen.setForeignKey(cursor.getInt(1));
+                imagen.setImageUri(cursor.getString(2));
+
+                image_list.add(imagen);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return image_list;
+    }
+
+    // Paso como parametro un objeto Imagenes y el id FK del cliente
+    public long anadeImagen(String uri, int id){
+        SQLiteDatabase db =this.getWritableDatabase();
+        ContentValues contentValues= new ContentValues();
+        contentValues.put(COLUMN_IMAGENES_PATH, uri);
+        contentValues.put(COLUMN_FOREIGN_KEY, id);
+
+        long ID= db.insert(DB_TABLE_IMAGENES, null, contentValues);
+
+        Log.d("Insertado", "id-->"+ID);
+        return ID;
     }
 }

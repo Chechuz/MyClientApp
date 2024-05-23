@@ -46,7 +46,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_shape"
-        android:onClick="Entrar"
+        android:onClick="entrar"
         android:text="@string/entrar"
         android:textColor="@color/white"
         android:textSize="16sp" />

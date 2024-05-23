@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.example.myclientapp.bbdd.DataBase;
 
 public class DetalleNota extends AppCompatActivity {
     TextView verTitulo,verDetalle;
+    Button atras;
     int id, idClient;
 
     @Override
@@ -33,8 +36,16 @@ public class DetalleNota extends AppCompatActivity {
 
         verTitulo = findViewById(R.id.verTitulo);
         verDetalle = findViewById(R.id.verDetalle);
+        atras = findViewById(R.id.btn_back_nota);
 
         seeNotes();
+
+        atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back();
+            }
+        });
 
         }
     protected void seeNotes(){
@@ -69,6 +80,11 @@ public class DetalleNota extends AppCompatActivity {
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
+    }
+    protected void back() {
+        Intent intent = new Intent(DetalleNota.this, NotasActivity.class);
+        intent.putExtra("id_cl",idClient);
+        startActivity(intent);
     }
 
 
